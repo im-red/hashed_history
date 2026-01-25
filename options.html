@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Gray History - Settings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .stats-section {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .stat-label {
+            font-weight: bold;
+            min-width: 150px;
+        }
+
+        .stat-value {
+            color: #007cba;
+            font-weight: bold;
+            font-size: 16px;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .clear-item-btn {
+            background: #d32f2f;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .clear-item-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .clear-item-btn:hover:not(:disabled) {
+            background: #b71c1c;
+        }
+
+        .message {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .privacy-note {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8f4fd;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #055160;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Gray History 配置</h1>
+
+    <div class="stats-section">
+        <h2>Statistics</h2>
+        <div class="stat-item">
+            <span class="stat-label">Recorded Domains:</span>
+            <span class="stat-value" id="domain-count">Loading...</span>
+            <button class="clear-item-btn" data-type="domains">Clear Domain Records</button>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">History Records:</span>
+            <span class="stat-value" id="history-count">Loading...</span>
+            <button class="clear-item-btn" data-type="history">Clear History Records</button>
+        </div>
+        <button id="refresh-stats" style="margin-top: 10px;">Refresh Statistics</button>
+    </div>
+
+    <div class="privacy-note">
+        <h3>Privacy Protection Information</h3>
+        <p>• All domains are hashed using SHA-256, original domains are not stored</p>
+        <p>• All URLs are hashed, original URLs are not stored</p>
+        <p>• No history is recorded by default</p>
+        <p>• All data is stored locally in the browser only</p>
+    </div>
+
+    <script src="options.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            width: 300px;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+
+        .domain-info {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 5px;
+        }
+
+        .toggle-btn {
+            width: 100%;
+            padding: 8px 12px;
+            background: #007cba;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .toggle-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .toggle-btn.recording {
+            background: #d32f2f;
+        }
+
+        .status {
+            margin-top: 10px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .options-link {
+            display: block;
+            margin-top: 15px;
+            text-align: center;
+            color: #007cba;
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        .options-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="domain-info">
+        <strong>Current Domain:</strong>
+        <div id="current-domain">Loading...</div>
+    </div>
+
+    <button id="toggle-btn" class="toggle-btn" disabled>
+        Loading...
+    </button>
+
+    <div class="status" id="status"></div>
+
+    <a href="options.html" target="_blank" class="options-link">
+        Open Settings Page
+    </a>
+
+    <script src="popup.js"></script>
+</body>
+
+</html>
