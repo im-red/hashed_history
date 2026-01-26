@@ -64,7 +64,7 @@ async function addToHistory(hashedUrl) {
   }
 }
 
-async function toggleDomainRecording(url, enable) {
+async function toggleDomainEnabled(url, enable) {
   const hashedDomain = await processDomain(url);
   if (!hashedDomain) return false;
 
@@ -83,9 +83,18 @@ async function toggleDomainRecording(url, enable) {
   return true;
 }
 
-async function getDomainRecordingStatus(url) {
+async function getDomainEnabledStatus(url) {
   const hashedDomain = await processDomain(url);
   if (!hashedDomain) return false;
+
+  const result = await chrome.storage.local.get(['enabledDomains']);
+  const enabledDomains = result.enabledDomains || [];
+  return enabledDomains.includes(hashedDomain);
+}
+
+async function isDomainEnabledByName(domain) {
+  if (!domain) return false;
+  const hashedDomain = await sha256(domain);
 
   const result = await chrome.storage.local.get(['enabledDomains']);
   const enabledDomains = result.enabledDomains || [];
@@ -102,12 +111,10 @@ async function handleUrlRecording(url, tabId) {
 
     chrome.tabs.query({}, (tabs) => {
       tabs.forEach(tab => {
-        if (tab.id !== tabId) {
-          chrome.tabs.sendMessage(tab.id, {
-            action: 'updateLinks',
-            visitedUrls: [hashedUrl]
-          }).catch(() => { });
-        }
+        chrome.tabs.sendMessage(tab.id, {
+          action: 'updateLinks',
+          visitedUrls: [hashedUrl]
+        }).catch(() => { });
       });
     });
   } catch (error) {
@@ -151,13 +158,13 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       sendResponse({ visitedUrls: result.visitedUrls || [] });
     });
     return true;
-  } else if (request.action === 'toggleDomainRecording') {
-    toggleDomainRecording(request.url, request.enable).then(success => {
+  } else if (request.action === 'toggleDomainEnabled') {
+    toggleDomainEnabled(request.url, request.enable).then(success => {
       sendResponse({ success });
     });
     return true;
-  } else if (request.action === 'getDomainRecordingStatus') {
-    getDomainRecordingStatus(request.url).then(enabled => {
+  } else if (request.action === 'getDomainEnabledStatus') {
+    getDomainEnabledStatus(request.url).then(enabled => {
       sendResponse({ enabled });
     });
     return true;
@@ -188,6 +195,11 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       chrome.storage.local.set(updates).then(() => {
         sendResponse({ success: true });
       });
+    });
+    return true;
+  } else if (request.action === 'checkDomainEnabled') {
+    isDomainEnabledByName(request.domain).then(enabled => {
+      sendResponse({ enabled });
     });
     return true;
   }

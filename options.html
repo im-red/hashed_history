@@ -82,44 +82,25 @@
             color: #721c24;
             border: 1px solid #f5c6cb;
         }
-
-        .privacy-note {
-            margin-top: 20px;
-            padding: 15px;
-            background: #e8f4fd;
-            border-radius: 4px;
-            font-size: 14px;
-            color: #055160;
-        }
     </style>
 </head>
 
 <body>
     <h1>Hashed History Settings</h1>
-
     <div class="stats-section">
         <h2>Statistics</h2>
         <div class="stat-item">
-            <span class="stat-label">Recorded Domains:</span>
+            <span class="stat-label">Enabled Domains:</span>
             <span class="stat-value" id="domain-count">Loading...</span>
-            <button class="clear-item-btn" data-type="domains">Clear Domain Records</button>
+            <button class="clear-item-btn" data-type="domains">Clear</button>
         </div>
         <div class="stat-item">
-            <span class="stat-label">History Records:</span>
+            <span class="stat-label">Visited URLs:</span>
             <span class="stat-value" id="history-count">Loading...</span>
-            <button class="clear-item-btn" data-type="history">Clear History Records</button>
+            <button class="clear-item-btn" data-type="history">Clear</button>
         </div>
         <button id="refresh-stats" style="margin-top: 10px;">Refresh Statistics</button>
     </div>
-
-    <div class="privacy-note">
-        <h3>Privacy Protection Information</h3>
-        <p>• All domains are hashed using SHA-256, original domains are not stored</p>
-        <p>• All URLs are hashed, original URLs are not stored</p>
-        <p>• No history is recorded by default</p>
-        <p>• All data is stored locally in the browser only</p>
-    </div>
-
     <script src="options.js"></script>
 </body>
 

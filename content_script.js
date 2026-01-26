@@ -31,6 +31,13 @@ async function markVisitedLinks(additionalUrls = []) {
         visitedUrls = [...new Set([...visitedUrls, ...additionalUrls])];
     }
 
+    const currentDomain = window.location.hostname;
+    const isDomainEnabled = await checkDomainEnabled(currentDomain);
+
+    if (!isDomainEnabled) {
+        return;
+    }
+
     const links = document.querySelectorAll('a[href]');
 
     for (const link of links) {
@@ -49,6 +56,17 @@ async function markVisitedLinks(additionalUrls = []) {
             continue;
         }
     }
+}
+
+async function checkDomainEnabled(domain) {
+    return new Promise((resolve) => {
+        chrome.runtime.sendMessage({
+            action: 'checkDomainEnabled',
+            domain: domain
+        }, (response) => {
+            resolve(response?.enabled || false);
+        });
+    });
 }
 
 function observeDOMChanges() {

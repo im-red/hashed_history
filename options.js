@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const clearHistory = type === 'history';
         const clearDomains = type === 'domains';
 
-        const dataTypeName = type === 'history' ? 'History Records' : 'Domain Records';
+        const dataTypeName = type === 'history' ? 'Visited URLs' : 'Enabled Domains';
 
         if (!confirm(`Are you sure you want to clear ${dataTypeName}? This action cannot be undone!`)) {
             return;

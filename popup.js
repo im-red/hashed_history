@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             currentDomainEl.textContent = domain;
 
             chrome.runtime.sendMessage({
-                action: 'getDomainRecordingStatus',
+                action: 'getDomainEnabledStatus',
                 url: url
             }, (response) => {
                 if (response && response.enabled !== undefined) {
@@ -41,18 +41,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    function updateToggleButton(isRecording) {
+    function updateToggleButton(isEnabled) {
         toggleBtn.disabled = false;
 
-        if (isRecording) {
-            toggleBtn.textContent = 'Stop Recording This Domain';
-            toggleBtn.classList.add('recording');
-            statusEl.textContent = 'Recording visit history for this domain';
+        if (isEnabled) {
+            toggleBtn.textContent = 'Disable for Domain';
+            toggleBtn.classList.add('enabled');
+            statusEl.textContent = 'Enabled: Recording and graying links for this domain';
             statusEl.style.color = '#d32f2f';
         } else {
-            toggleBtn.textContent = 'Start Recording This Domain';
-            toggleBtn.classList.remove('recording');
-            statusEl.textContent = 'Not recording visit history for this domain';
+            toggleBtn.textContent = 'Enable for Domain';
+            toggleBtn.classList.remove('enabled');
+            statusEl.textContent = 'Disabled: No recording or link graying for this domain';
             statusEl.style.color = '#666';
         }
     }
@@ -62,14 +62,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             const tab = await getCurrentTab();
             if (!tab || !tab.url) return;
 
-            const currentStatus = toggleBtn.classList.contains('recording');
+            const currentStatus = toggleBtn.classList.contains('enabled');
             const newStatus = !currentStatus;
 
             toggleBtn.disabled = true;
             toggleBtn.textContent = 'Processing...';
 
             chrome.runtime.sendMessage({
-                action: 'toggleDomainRecording',
+                action: 'toggleDomainEnabled',
                 url: tab.url,
                 enable: newStatus
             }, (response) => {
