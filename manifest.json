@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
-    "name": "Gray History",
+    "name": "Hashed History",
     "version": "1.0.0",
-    "description": "Privacy-protected URL history tracking that grays out visited links",
+    "description": "Privacy-protected URL history tracking",
     "permissions": [
         "webNavigation",
         "storage",
@@ -10,7 +10,7 @@
     ],
     "action": {
         "default_popup": "popup.html",
-        "default_title": "Gray History"
+        "default_title": "Hashed History"
     },
     "options_page": "options.html",
     "background": {
