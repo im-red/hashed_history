@@ -10,7 +10,10 @@
     ],
     "action": {
         "default_popup": "popup.html",
-        "default_title": "Hashed History"
+        "default_title": "Hashed History",
+        "default_icon": {
+            "128": "icon.png"
+        }
     },
     "options_page": "options.html",
     "background": {
