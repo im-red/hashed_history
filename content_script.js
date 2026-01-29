@@ -27,8 +27,10 @@ async function getVisitedUrls() {
 async function markVisitedLinks(additionalUrls = []) {
     let visitedUrls = await getVisitedUrls();
 
+    const visitedUrlsSet = new Set(visitedUrls);
+
     if (additionalUrls.length > 0) {
-        visitedUrls = [...new Set([...visitedUrls, ...additionalUrls])];
+        additionalUrls.forEach(url => visitedUrlsSet.add(url));
     }
 
     const currentDomain = window.location.hostname;
@@ -48,7 +50,7 @@ async function markVisitedLinks(additionalUrls = []) {
             const normalizedUrl = normalizeUrl(href);
             const hashedUrl = await sha256(normalizedUrl);
 
-            if (visitedUrls.includes(hashedUrl)) {
+            if (visitedUrlsSet.has(hashedUrl)) {
                 link.style.color = '#A0A0A0';
                 link.style.textDecoration = 'line-through';
             }
